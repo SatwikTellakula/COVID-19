@@ -111,7 +111,7 @@ app.get("/states/:stateId/stats/", async (request, response) => {
   const { stateId } = request.params;
   const getStatsInStateQuery = `
     SELECT SUM(cases),
-    SUM(cured)
+    SUM(cured),
     SUM(active),
     SUM(deaths)
     FROM district 
