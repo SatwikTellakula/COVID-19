@@ -99,7 +99,7 @@ app.put("/districts/:districtId/", async (request, response) => {
     state_id=${stateId},
     cases=${cases},
     cured=${cured},
-    active=${cured},
+    active=${active},
     deaths=${deaths}
     WHERE district_id=${districtId};
     `;
@@ -129,7 +129,7 @@ app.get("/states/:stateId/stats/", async (request, response) => {
 app.get("/districts/:districtId/details/", async (request, response) => {
   const { districtId } = request.params;
   const getStateNameQuery = `
-    SELECT state.state_name from state NATURAL JOIN district 
+    SELECT state.state_name as stateName from state NATURAL JOIN district 
     where district.district_id=${districtId};
     `;
   const stateName = await db.get(getStateNameQuery);
