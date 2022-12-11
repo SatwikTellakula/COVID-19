@@ -128,12 +128,9 @@ app.get("/states/:stateId/stats/", async (request, response) => {
 
 app.get("/districts/:districtId/details/", async (request, response) => {
   const { districtId } = request.params;
-  const stateId = `
-    SELECT state_id from district where district_id=${districtId}; 
-    `;
-  const getStateId = await db.get(stateId);
   const getStateNameQuery = `
-    SELECT state_name from state where state_id=${getStateId};
+    SELECT state.state_name from state NATURAL JOIN district 
+    where district.district_id=${districtId};
     `;
   const stateName = await db.get(getStateNameQuery);
   response.send(stateName);
